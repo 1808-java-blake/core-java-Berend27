@@ -428,7 +428,7 @@ public class EvaluationService {
 	}
 			
 	
-		return new String(pigLatinWord2);
+		return new String(pigLatinWord2).trim();
 	}
 
 	/**

@@ -32,7 +32,7 @@ public class homeworktester {
 		// TODO Write an implementation for this method declaration, 
 		// 		Be able to handle a string with multiple words separated by spaces
 		char[] pigLatinWord = new char[string.length()+6];
-		char[] pigLatinWord2 = new char[string.length()+10];
+		char[] pigLatinWord2 = new char[string.length()+5];
 		int startingConsonants = 0;
 		int end2 = string.length();
 		char letter = string.charAt(0);
@@ -86,7 +86,7 @@ public class homeworktester {
 		case 0: 
 			for (int j = startingConsonants; j < string.length()-startingConsonants; j++)
 			{
-				for (int m = 0; m < string.length() + 5; m++)
+				for (int m = 0; m < string.length() + 2; m++)
 					pigLatinWord2[m] = pigLatinWord[m+startingConsonants];
 			}
 			break;
@@ -114,7 +114,7 @@ public class homeworktester {
 	}
 			
 	
-		return new String(pigLatinWord2);
+		return new String(pigLatinWord2).trim();
 	}
 	
 	public String cleanPhoneNumber(String string) {
