@@ -1,5 +1,8 @@
 package com.revature.eval.java.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class homeworktester {
 	public static void main(String[] args) {
 		String theString = "Dexter Berend";
@@ -25,7 +28,92 @@ public class homeworktester {
 		System.out.println(cleanedNumber);
 		String playString = tester.toPigLatin("school");
 		System.out.println(playString);
+		System.out.println(tester.isArmstrongNumber(370));
+		System.out.println(tester.rotate("1 a z"));
+		System.out.println(tester.calculatePrimeFactorsOf(16));
 
+	}
+	
+	public List<Long> calculatePrimeFactorsOf(long l) { 
+		Long divisor = 2L;
+		List<Long> PrimeFactors = new ArrayList<>();
+		while (l != 1L)
+		{
+			if (l % divisor == 0)
+				PrimeFactors.add(divisor);
+			else
+				divisor += 1L;
+		}
+		return PrimeFactors;
+
+	} 
+	
+	public String rotate(String string) {
+		int key = 1;
+		char[] rotated = new char[string.length()];
+		for (int i = 0; i < string.length(); i++)
+		{
+			if ((string.charAt(i) >= '0' && string.charAt(i) <= '9') || string.charAt(i) == ' ')
+			{
+				rotated[i] = string.charAt(i);
+				continue;
+			}
+			rotated[i] = (char) ((int)string.charAt(i) + key);
+			if (rotated[i] > 'z')
+				rotated[i] -= 26;
+			else if(rotated[i] > 90 && rotated[i] < 97)
+				rotated[i] -= 26;
+		}
+		return new String(rotated);
+	}
+
+	
+	public boolean isArmstrongNumber(int input) {
+		String theNumber = Integer.toString(input);
+		int power = theNumber.length();
+		int sum = 0;
+		int a = 0;
+		int b = 0;
+		int c = 0;
+		int d = 0;
+		switch (power) 
+		{
+		case 1:
+			d = Character.getNumericValue(theNumber.charAt(0));
+			break;
+		case 2:
+			d = (Character.getNumericValue(theNumber.charAt(1)));
+			d = d*d;
+			c = (Character.getNumericValue(theNumber.charAt(0)));
+			c = c*c;
+			break;
+		case 3: 
+			d = Character.getNumericValue(theNumber.charAt(2));
+			d = d*d*d;
+			c = (Character.getNumericValue(theNumber.charAt(1)));
+			c = c*c*c;
+			b = (Character.getNumericValue(theNumber.charAt(0)));
+			b = b*b*b;
+			break;
+		case 4:
+			d = (Character.getNumericValue(theNumber.charAt(3)));
+			d = d*d*d*d;
+			c = (Character.getNumericValue(theNumber.charAt(2)));
+			c = c*c*c*c;
+			b = (Character.getNumericValue(theNumber.charAt(1)));
+			b = b*b*b*b;
+			a = (Character.getNumericValue(theNumber.charAt(0)));
+			a = a*a*a*a;
+			break;
+		default:
+			return false;
+		}
+		sum = a + b + c + d;
+		if (sum == input)
+			return true;
+		else 
+			return false;
+		
 	}
 	
 	public String toPigLatin(String string) {

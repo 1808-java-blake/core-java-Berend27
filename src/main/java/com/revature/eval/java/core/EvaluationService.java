@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -447,8 +448,51 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		String theNumber = Integer.toString(input);
+		int power = theNumber.length();
+		int sum = 0;
+		int a = 0;
+		int b = 0;
+		int c = 0;
+		int d = 0;
+		switch (power) 
+		{
+		case 1:
+			d = Character.getNumericValue(theNumber.charAt(0));
+			break;
+		case 2:
+			d = (Character.getNumericValue(theNumber.charAt(1)));
+			d = d*d;
+			c = (Character.getNumericValue(theNumber.charAt(0)));
+			c = c*c;
+			break;
+		case 3: 
+			d = Character.getNumericValue(theNumber.charAt(2));
+			d = d*d*d;
+			c = (Character.getNumericValue(theNumber.charAt(1)));
+			c = c*c*c;
+			b = (Character.getNumericValue(theNumber.charAt(0)));
+			b = b*b*b;
+			break;
+		case 4:
+			d = (Character.getNumericValue(theNumber.charAt(3)));
+			d = d*d*d*d;
+			c = (Character.getNumericValue(theNumber.charAt(2)));
+			c = c*c*c*c;
+			b = (Character.getNumericValue(theNumber.charAt(1)));
+			b = b*b*b*b;
+			a = (Character.getNumericValue(theNumber.charAt(0)));
+			a = a*a*a*a;
+			break;
+		default:
+			return false;
+		}
+		sum = a + b + c + d;
+		if (sum == input)
+			return true;
+		else 
+			return false;
+		
 	}
 
 	/**
@@ -460,11 +504,23 @@ public class EvaluationService {
 	 * 
 	 * @param l
 	 * @return
-	 */
-	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
-	}
+	 */ 
+	public List<Long> calculatePrimeFactorsOf(long l) { 
+		Long divisor = 2l;
+		List<Long> PrimeFactors = new ArrayList<>();
+		while (l != 1l)
+		{
+			if (l % divisor == 0)
+			{
+				PrimeFactors.add(divisor);
+				l = l / divisor;
+			}
+			else
+				divisor += 1l;
+		}
+		return PrimeFactors;
+
+	} 
 
 	/**
 	 * 11. Create an implementation of the rotational cipher, also sometimes called
@@ -501,8 +557,23 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			char[] rotated = new char[string.length()];
+			for (int i = 0; i < string.length(); i++)
+			{
+				if ((string.charAt(i) < 'A'))
+				{
+					rotated[i] = string.charAt(i);
+					continue;
+				}
+				rotated[i] = (char) ((int)string.charAt(i) + key);
+				if (rotated[i] > 'z')
+					rotated[i] -= 26;
+				else if(rotated[i] > 90 && rotated[i] < 97)
+					rotated[i] -= 26;
+				else if(string.charAt(i) < 90 && rotated[i] > 'Z')
+					rotated[i] -= 26;
+			}
+			return new String(rotated);
 		}
 
 	}
@@ -521,6 +592,7 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
+		// for 0th prime, make an if case and throw exception as illegal argument
 		return 0;
 	}
 
