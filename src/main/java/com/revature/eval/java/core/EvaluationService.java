@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.lang.Object;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class EvaluationService {
 		int spaceCount = 0;
 		for (int i = 0; i <= phrase.length() - 1; i++) 
 		{
-			if (phrase.charAt(i) == ' ') 
+			if (phrase.charAt(i) == ' ' || phrase.charAt(i) == '-') 
 			{
 				spaceCount += 1;
 				if (phrase.charAt(i+1) != '\0')
@@ -59,7 +60,7 @@ public class EvaluationService {
 			}
 		} while (phrase.charAt(j) == ' ');
 
-		return new String(acronymed).toUpperCase();
+		return new String(acronymed).toUpperCase().trim();
 	}
 
 	/**
@@ -593,7 +594,30 @@ public class EvaluationService {
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
 		// for 0th prime, make an if case and throw exception as illegal argument
-		return 0;
+		if (i <= 0)
+			throw new IllegalArgumentException();
+		else 
+		{
+			int prime = 1; 
+			int divisor;
+			for (int j = 1; j <= i; j++)
+			{
+				prime++;
+				divisor = prime - 1;
+				if (divisor == 1)
+					continue;
+				while (prime % divisor != 0)
+				{
+					divisor -= 1;
+					if (prime % divisor == 0 && divisor != 1)
+					{
+						prime += 1; 
+						divisor = prime - 1;
+					}
+				}
+			}
+		return prime;
+		}
 	}
 
 	/**
@@ -629,8 +653,167 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			string = string.toLowerCase();
+			char[] ciphered = new char[string.length()+1];
+			char[] grouped = new char[string.length()*2];
+			char thisChar;
+			int addedSpace = 0;
+			int spaces = 0;
+			
+			for (int i = 0; i < string.length(); i++) 
+			{
+				thisChar = string.charAt(i);
+				switch (thisChar) {
+				case 'a':
+					thisChar = 'z';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'b':
+					thisChar = 'y';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'c':
+					thisChar = 'x';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'd':
+					thisChar = 'w';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'e':
+					thisChar = 'v';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'f':
+					thisChar = 'u';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'g':
+					thisChar = 't';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'h':
+					thisChar = 's';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'i':
+					thisChar = 'r';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'j':
+					thisChar = 'q';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'k':
+					thisChar = 'p';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'l':
+					thisChar = 'o';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'm':
+					thisChar = 'n';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'n':
+					thisChar = 'm';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'o':
+					thisChar = 'l';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'p':
+					thisChar = 'k';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'q':
+					thisChar = 'j';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'r':
+					thisChar = 'i';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 's':
+					thisChar = 'h';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 't':
+					thisChar = 'g';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'u':
+					thisChar = 'f';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'v':
+					thisChar = 'e';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'w':
+					thisChar = 'd';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'x':
+					thisChar = 'c';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'y':
+					thisChar = 'b';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'z':
+					thisChar = 'a';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case ' ':
+					spaces += 1;
+					break;
+				case '.':
+					spaces += 1;
+					break;
+				case ',':
+					spaces += 1;
+					break;
+				default: 
+					ciphered[i-spaces] = thisChar;
+					break;
+					
+				}
+				
+			}
+			if (string.length() >= 4)
+			{
+				for (int j = 0; j < (string.length()+2); j++)
+				{
+					if (j != 0 && (j+1) % 6 == 0)
+					{
+						grouped[j] = ' ';
+						addedSpace += 1;
+					}
+					else
+						//System.out.println(ciphered[(j - addedSpace)]);
+						grouped[j] = ciphered[j - addedSpace];
+				}
+			}
+			else
+			{
+				for (int j = 0; j < (string.length()); j++)
+				{
+					if (j != 0 && (j+1) % 6 == 0)
+					{
+						grouped[j] = ' ';
+						addedSpace += 1;
+					}
+					else
+						//System.out.println(ciphered[(j - addedSpace)]);
+						grouped[j] = ciphered[j - addedSpace];
+				}
+			}
+			
+			return new String(grouped).trim();
 		}
 
 		/**
@@ -640,9 +823,132 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			string = string.toLowerCase();
+			char[] ciphered = new char[string.length()];
+			char thisChar;
+			int addedSpace = 0;
+			int spaces = 0;
+			
+			for (int i = 0; i < string.length(); i++) 
+			{
+				thisChar = string.charAt(i);
+				switch (thisChar) {
+				case 'a':
+					thisChar = 'z';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'b':
+					thisChar = 'y';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'c':
+					thisChar = 'x';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'd':
+					thisChar = 'w';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'e':
+					thisChar = 'v';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'f':
+					thisChar = 'u';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'g':
+					thisChar = 't';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'h':
+					thisChar = 's';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'i':
+					thisChar = 'r';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'j':
+					thisChar = 'q';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'k':
+					thisChar = 'p';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'l':
+					thisChar = 'o';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'm':
+					thisChar = 'n';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'n':
+					thisChar = 'm';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'o':
+					thisChar = 'l';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'p':
+					thisChar = 'k';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'q':
+					thisChar = 'j';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'r':
+					thisChar = 'i';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 's':
+					thisChar = 'h';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 't':
+					thisChar = 'g';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'u':
+					thisChar = 'f';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'v':
+					thisChar = 'e';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'w':
+					thisChar = 'd';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'x':
+					thisChar = 'c';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'y':
+					thisChar = 'b';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case 'z':
+					thisChar = 'a';
+					ciphered[i-spaces] = thisChar;
+					break;
+				case ' ':
+					spaces += 1;
+					break;
+				default: 
+					ciphered[i-spaces] = thisChar;
+					break;
+					
+				}
+			
 		}
+			return new String(ciphered).trim();
+	}
 	}
 
 	/**
@@ -668,8 +974,26 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		string = string.replaceAll("-", "").trim();  // gets rid of dashes
+		char[] isbn = new char[string.length()];
+		int[] ic = new int[string.length()];
+		for(int i = 0; i < string.length(); i++)
+		{	
+			isbn[i] = string.charAt(i);
+			if (isbn[i] > 58 && isbn[i] != 'X')
+				return false;
+			if (i < 9)
+			{
+				ic[i] = (int) string.charAt(i);
+			}
+			if (isbn[9] == 'X')
+				ic[9] = 10;
+			else
+				ic[9] = (int) string.charAt(9);
+		}
+		
+		return ((ic[0] * 10 + ic[1] * 9 + ic[2] * 8 + ic[3] * 7 + ic[4] * 6 + ic[5] * 5 + ic[6] * 4 + ic[7] * 3 + 
+				ic[8] * 2 + ic[9] * 1) % 11 == 0);
 	}
 
 	/**
@@ -791,7 +1115,29 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		string = string.replaceAll(" by", "");
+		String[] split = string.split(" ");
+		int first = Integer.parseInt(split[2]);
+		int answer = 1;
+		char[] n2 = new char[split[4].length()-1];
+		for (int i = 0; i < split[4].length()-1; i++)
+		{
+			n2[i] = split[4].charAt(i); 
+		}
+		String s2 = new String(n2);
+		int second = Integer.parseInt(s2);
+		if (split[3].equals("plus"))
+			answer = first + second;
+		else if (split[3].equals("minus"))
+			answer = first - second;
+		else if (split[3].equals("multiplied"))
+			answer = first*second;
+		else if (split[3].equals("divided"))
+			answer = first/second;
+		else 
+			throw new IllegalArgumentException();
+		
+		return answer;
 	}
 
 }

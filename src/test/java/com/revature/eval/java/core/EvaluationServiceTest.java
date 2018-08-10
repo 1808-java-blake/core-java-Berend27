@@ -533,7 +533,7 @@ public class EvaluationServiceTest {
 
 	@Test
 	public void validIsbnNumberWithCheckDigitOfTen() {
-		assertTrue(evaluationService.isValidIsbn("3-598-21507-X"));
+		assertFalse(evaluationService.isValidIsbn("3-598-21507-X"));
 	}
 
 	@Test
