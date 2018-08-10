@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class homeworktester {
 	public static void main(String[] args) {
 		String theString = "Dexter Berend";
@@ -37,6 +38,9 @@ public class homeworktester {
 		System.out.println(Atbash.encode("mindblowingly"));
 		System.out.println(tester.isValidIsbn("3-598-21507-X"));
 		System.out.println(tester.solveWordProblem("What is 1 plus 1?"));
+		String str = "helloslkhellodjladfjhello";
+		String findStr = "hello";
+		System.out.println(str.split(findStr, -1).length-1);
 
 	}
 	

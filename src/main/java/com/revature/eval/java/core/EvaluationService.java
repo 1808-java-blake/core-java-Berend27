@@ -1,10 +1,16 @@
 package com.revature.eval.java.core;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.Temporal;
 import java.lang.Object;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class EvaluationService {
 
@@ -251,7 +257,7 @@ public class EvaluationService {
 					numCount += 1;
 				}
 			}
-			return new String(phoneNumber);
+			return new String(phoneNumber).trim();
 		}
 	}
 
@@ -266,8 +272,24 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		String[] split = string.split("[ \\,]");
+		Map <String, Integer> words = new HashMap<>();
+		int occurrences = 0;
+		for (String word: split)
+		{
+			occurrences = countOfOccurrences(string, word);
+			words.put(word, occurrences);
+		}
+		return words;
 	}
+	
+
+
+	public int countOfOccurrences(String str, String subStr) {
+		return (str.length() - str.replaceAll(Pattern.quote(subStr), "").length()) / subStr.length();
+	}
+
+
 
 	/**
 	 * 7. Implement a binary search algorithm.
@@ -1023,10 +1045,24 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
-		return null;
-	}
 
+        //In case,time not included
+
+        if(given instanceof LocalDate) {
+
+            LocalDateTime time = LocalDateTime.of((LocalDate) given, LocalTime.MIN);
+
+            return time.plus(Duration.ofSeconds(1000000000l));
+
+        }
+
+        //if time is included
+
+        LocalDateTime time = LocalDateTime.from(given);
+
+        return time.plus(Duration.ofSeconds(1000000000l));
+
+    }
 	/**
 	 * 18. Given a number, find the sum of all the unique multiples of particular
 	 * numbers up to but not including that number.
